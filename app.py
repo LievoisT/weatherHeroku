@@ -27,7 +27,7 @@ def index():
 
 # Route to create lstm forecast
 @app.route("/model_data")
-# @cache.cached(timeout=1800)
+@cache.cached(timeout=1800)
 def apply_model():
     days = pd.date_range(dt.date.today() - dt.timedelta(days=5), periods=6, freq="D").tolist()
     request_data = []
@@ -76,7 +76,7 @@ def apply_model():
     return pd.DataFrame(predictions[0], columns=differenced_df.columns, index=pd.date_range(dt.date.today(), periods=6, freq="D")).to_json(orient="index")
 
 @app.route("/forecast_data")
-# @cache.cached(timeout=1800)
+@cache.cached(timeout=1800)
 def get_forecast():
     weather_response = requests.get(f'https://api.openweathermap.org/data/2.5/onecall?lat=29.7604&lon=-95.3698&exclude=current,minutely,hourly,alerts&units=imperial&appid={api_key}').json()
 
