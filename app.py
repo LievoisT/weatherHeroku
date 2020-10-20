@@ -101,5 +101,5 @@ def get_forecast():
     return pd.DataFrame(weather_forecast).transpose()[:6].to_json(orient="index")
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
     
