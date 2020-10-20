@@ -32,7 +32,7 @@ def index():
 @app.route("/model_data")
 # @cache.cached(timeout=1800)
 def apply_model():
-    days = pd.date_range(dt.date.today() - dt.timedelta(days=5), periods=6, freq="D").tolist()
+    days = pd.date_range(dt.datetime.utcnow().date() - dt.timedelta(days=5), periods=6, freq="D").tolist()
     request_data = []
     for day in days:
         request_data.append(
