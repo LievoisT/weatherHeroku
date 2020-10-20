@@ -28,9 +28,17 @@ cache = Cache(app)
 def index():
     return render_template('index.html')
 
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
+@app.route('/weather_viz')
+def weather():
+    return render_template('weather_viz.html')
+
 # Route to create lstm forecast
 @app.route("/model_data")
-# @cache.cached(timeout=1800)
+@cache.cached(timeout=1800)
 def apply_model():
     days = pd.date_range(dt.datetime.utcnow().date() - dt.timedelta(days=5), periods=6, freq="D").tolist()
     request_data = []
@@ -50,8 +58,9 @@ def apply_model():
             "slp": np.nanmean(np.array([hour["pressure"] if "pressure" in hour else np.NaN for hour in day["hourly"]] )),
             "visib": np.nanmean(np.array([hour["visibility"] if "visibility" in hour else np.NaN for hour in day["hourly"]])),
             "wdsp": np.nanmean(np.array([hour["wind_speed"] if "wind_speed" in hour else np.NaN for hour in day["hourly"]])),
-            "min": np.min(np.array([hour["temp"] if "temp" in hour else np.NaN for hour in day["hourly"]])),
+            
             "max": np.max(np.array([hour["temp"] if "temp" in hour else np.NaN for hour in day["hourly"]])),
+            "min": np.min(np.array([hour["temp"] if "temp" in hour else np.NaN for hour in day["hourly"]])),
             "fog": np.nanmean(np.array([1 if hour["weather"][0]["main"] == "Fog" else 0 for hour in day["hourly"]] )),
             "rain_drizzle": np.nanmean(np.array([1 if hour["weather"][0]["main"] in ["Rain", "Drizzle"] else 0 for hour in day["hourly"]])),
             "snow_ice_pellets": np.nanmean(np.array([1 if hour["weather"][0]["main"] == "Snow" else 0 for hour in day["hourly"]] )),
@@ -79,11 +88,13 @@ def apply_model():
     return pd.DataFrame(predictions[0], columns=differenced_df.columns, index=pd.date_range(dt.datetime.utcnow().date(), periods=6, freq="D")).to_json(orient="index")
 
 @app.route("/forecast_data")
-# @cache.cached(timeout=1800)
+@cache.cached(timeout=1800)
 def get_forecast():
     weather_response = requests.get(f'https://api.openweathermap.org/data/2.5/onecall?lat=29.7604&lon=-95.3698&exclude=current,minutely,hourly,alerts&units=imperial&appid={api_key}').json()
 
+    days = pd.date_range(dt.datetime.utcnow().date(), periods=8, freq="D").tolist()
     weather_forecast = {}
+    i=0
     for day in weather_response["daily"]:
         weather_day = {
             "temp": np.mean([day["temp"]["min"], day["temp"]["max"]]) if "temp" in day else np.NaN,
@@ -91,17 +102,19 @@ def get_forecast():
             "slp": day["pressure"] if "pressure" in day else np.NaN,
             "visib": day["visibility"] if "visibility" in day else np.NaN,
             "wdsp": day["wind_speed"] if "wind_speed" in day else np.NaN,
-            "min": day["temp"]["min"] if "temp" in day else np.NaN,
             "max": day["temp"]["max"] if "temp" in day else np.NaN,
+            "min": day["temp"]["min"] if "temp" in day else np.NaN,
             "fog": 1 if day["weather"][0]["main"] == "Fog" else 0,
             "rain_drizzle": 1 if day["weather"][0]["main"] in ["Rain", "Drizzle"] else 0,
             "snow_ice_pellets": 1 if day["weather"][0]["main"] == "Snow" else 0,
             "hail": 1 if day["weather"][0]["main"] == "Hail" else 0,
             "thunder": 1 if day["weather"][0]["main"] == "Thunderstorm" else 0
         }
-        weather_forecast[day["dt"]] = weather_day
+        weather_forecast[days[i]] = weather_day
+        i+=1
     
-    return pd.DataFrame(weather_forecast).transpose()[:6].to_json(orient="index")
+
+    return pd.DataFrame(weather_forecast).transpose()[0:6].to_json(orient="index")
 
 if __name__ == "__main__":
     app.run(debug=True)
