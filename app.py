@@ -2,11 +2,14 @@ from flask import Flask, render_template, request, jsonify
 from flask_caching import Cache
 import json
 import requests
-from config import api_key
+# from config import api_key
 import datetime as dt
 import pandas as pd
 import numpy as np
 from tensorflow.keras.models import load_model
+from boto.s3.connection import S3Connection
+
+api_key = S3Connection(os.environ['api_key'])
 
 config = {
     "DEBUG": True,          # some Flask specific configs
@@ -41,6 +44,7 @@ def apply_model():
     weather_data = {}
     i=0
     for day in request_data:
+        print(day)
         weather_day = {
             "temp": np.nanmean(np.array([hour["temp"] if "temp" in hour else np.NaN for hour in day["hourly"]])),
             "dewp": np.nanmax(np.array([hour["dew_point"] if "dew_point" in hour else np.NaN for hour in day["hourly"]])),
@@ -101,5 +105,5 @@ def get_forecast():
     return pd.DataFrame(weather_forecast).transpose()[:6].to_json(orient="index")
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
     
