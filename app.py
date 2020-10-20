@@ -7,9 +7,10 @@ import datetime as dt
 import pandas as pd
 import numpy as np
 from tensorflow.keras.models import load_model
-from boto.s3.connection import S3Connection
+# from boto.s3.connection import S3Connection
 
-api_key = S3Connection(os.environ['api_key'])
+api_key = "69abcb48ebe324d7b67d84adc6b64573"
+# api_key = S3Connection(os.environ['api_key'])
 
 config = {
     "DEBUG": True,          # some Flask specific configs
