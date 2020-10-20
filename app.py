@@ -2,15 +2,14 @@ from flask import Flask, render_template, request, jsonify
 from flask_caching import Cache
 import json
 import requests
-# from config import api_key
+from config import api_key
 import datetime as dt
 import pandas as pd
 import numpy as np
 from tensorflow.keras.models import load_model
 # from boto.s3.connection import S3Connection
 
-api_key = "69abcb48ebe324d7b67d84adc6b64573"
-# api_key = S3Connection(os.environ['api_key'])
+
 
 config = {
     "DEBUG": True,          # some Flask specific configs
@@ -45,7 +44,6 @@ def apply_model():
     weather_data = {}
     i=0
     for day in request_data:
-        print(day)
         weather_day = {
             "temp": np.nanmean(np.array([hour["temp"] if "temp" in hour else np.NaN for hour in day["hourly"]])),
             "dewp": np.nanmax(np.array([hour["dew_point"] if "dew_point" in hour else np.NaN for hour in day["hourly"]])),
@@ -78,7 +76,7 @@ def apply_model():
     predictions = predictions * np.array(np.sqrt(scalers["scale_vars"]))
     predictions += lookup_year[pd.Timestamp(dt.date.today() - dt.timedelta(days=366)):pd.Timestamp(dt.date.today() - dt.timedelta(days=361))].values
     
-    return pd.DataFrame(predictions[0], columns=differenced_df.columns, index=pd.date_range(dt.date.today(), periods=6, freq="D")).to_json(orient="index")
+    return pd.DataFrame(predictions[0], columns=differenced_df.columns, index=pd.date_range(dt.datetime.utcnow().date(), periods=6, freq="D")).to_json(orient="index")
 
 @app.route("/forecast_data")
 # @cache.cached(timeout=1800)
