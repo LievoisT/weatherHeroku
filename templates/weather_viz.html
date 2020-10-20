@@ -24,17 +24,13 @@
 
   <body>
     <!-- Header -->
-    <div class="container-fluid bg_black">
+    <div class="container-fluid bg_blue">
         <div class="row">
             <div class="container">
-                <div class="col-md-8">
-                    <h1>
-                        Houston Weather Modeling
-                    </h1>
-                </div>
-                <div class="col-md-4 bg_black d-none d-md-block">
-                    <a href="https://climate.nasa.gov/news/2839/nasas-airs-captures-polar-vortex-moving-in-over-us/" target="_blank">
-                        <img src="/static/polar-vortex.gif" alt="NASA's Atmospheric Infrared Sounder (AIRS) instrument showing global temperatures distribution in Celcius" class="pic_header">
+                <div class="col-md-12 header">
+                    <h1 class = "left_align">Houston Weather Modeling</h1>
+                    <a class = "right_align" href="https://climate.nasa.gov/news/2839/nasas-airs-captures-polar-vortex-moving-in-over-us/" target="_blank">
+                        <img id = "gifid" src="/static/polar-vortex.gif" alt="NASA's Atmospheric Infrared Sounder (AIRS) instrument showing global temperatures distribution in Celcius" class="pic_header">
                     </a>
                 </div>
             </div>
@@ -67,7 +63,7 @@
                 </div>              
             </nav>
             <div class='row dk_blue_text'>
-                <h2>Weather Visualization</h2>
+                <h2>LSTM Prediction Weather Visualization</h2>
             </div>
             <div class = "row">
                 <div class = "viz_display">
@@ -83,7 +79,7 @@
 
     <!-- Footer with author names and contact information-->
     <footer class = "fixed-bottom">
-        <div class="container-fluid bg_black">
+        <div class="container-fluid bg_blue">
             <div class= "container centered_text">
                 <div class="row">
                     <div class = "col-md-12 white_text pt-3">

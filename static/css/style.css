@@ -10,6 +10,14 @@ p {
     color: white;
 }
 
+.left_align {
+    text-align: left;
+}
+
+.right_align {
+    align-items: right;
+}
+
 .dk_blue_text {
     color: #123C69;
 }
@@ -21,6 +29,7 @@ p {
 
 h1 {
     color: white;
+    padding-top: 0px;
 }
 
 body {
@@ -29,6 +38,12 @@ body {
 
 .tab {
     text-indent: 50px;
+}
+
+.test {
+    display: block;
+    margin: 0;
+    padding:0;
 }
 
 .card-img-top {
@@ -64,12 +79,21 @@ h4, h5 {
     margin-bottom: -50px;
 }
 
+.header img {
+    position: relative;
+}
+
+.header h1 {
+    float: left;
+}
+
 .pic_header {
     width: 100px;
     float: right;
+    margin-top: 0px;
 }
 
-.bg_black {
+.bg_blue {
     background-color:#123C69;
 }
 
@@ -141,9 +165,3 @@ hr{
         align-self: center;
     }
 }
-/* 
-@media only screen and (min-width: 768px) {
-    .chart {
-        padding-top: 1px;
-    }
-} */

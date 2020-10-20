@@ -66,7 +66,7 @@ function init(){
             name: 'Mean Temperature',
             x: date,
             y: modelAvgTemp,
-            line: {color:'black'}
+            line: {color:"#729ECE"}
         };
         const minTempTrace = {
             type: 'scatter',
@@ -74,7 +74,7 @@ function init(){
             name: 'Min Temperature',
             x: date,
             y: modelMinTemp,
-            line: {color:'green'}
+            line: {color:'#FF9E4A'}
         };
         const maxTempTrace = {
             type: 'scatter',
@@ -82,7 +82,7 @@ function init(){
             name: 'Max Temperature',
             x: date,
             y: modelMaxTemp,
-            line: {color:'orange'}
+            line: {color:'#67BF5C'}
         };
         // define layout
         const layout = {
@@ -128,7 +128,7 @@ function init(){
             name: 'Mean Temperature',
             x: futureDates,
             y: OWMAvgTemp,
-            line: {color:'black'}
+            line: {color:"#729ECE"}
         };
         const minTempTrace = {
             type: 'scatter',
@@ -136,7 +136,7 @@ function init(){
             name: 'Min Temperature',
             x: futureDates,
             y: OWMMinTemp,
-            line: {color:'green'}
+            line: {color:'#FF9E4A'}
         };
         const maxTempTrace = {
             type: 'scatter',
@@ -144,7 +144,7 @@ function init(){
             name: 'Max Temperature',
             x: futureDates,
             y: OWMMaxTemp,
-            line: {color:'orange'}
+            line: {color:'#67BF5C'}
         };
         // define layout
         const layout = {
@@ -237,7 +237,7 @@ function updateInteractivePlot(parameter){
                 name: 'Mean Temperature',
                 x: date,
                 y: chooseModelParameter(parameterSelected)[0],
-                line: {color:'black'}
+                line: {color:"#729ECE"}
             };
             const modelMinTempTrace = {
                 type: 'scatter',
@@ -245,7 +245,7 @@ function updateInteractivePlot(parameter){
                 name: 'Min Temperature',
                 x: date,
                 y: chooseModelParameter(parameterSelected)[1],
-                line: {color:'green'}
+                line: {color:'#FF9E4A'}
             };
             const modelMaxTempTrace = {
                 type: 'scatter',
@@ -253,7 +253,7 @@ function updateInteractivePlot(parameter){
                 name: 'Max Temperature',
                 x: date,
                 y: chooseModelParameter(parameterSelected)[2],
-                line: {color:'orange'}
+                line: {color:'#67BF5C'}
             };
             // define layout
             const layout = {
@@ -273,7 +273,7 @@ function updateInteractivePlot(parameter){
                 name: 'Mean Temperature',
                 x: date,
                 y: chooseOpenWeatherParameter(parameterSelected)[0],
-                line: {color:'black'}
+                line: {color:"#729ECE"}
             };
             const OWMMinTempTrace = {
                 type: 'scatter',
@@ -281,7 +281,7 @@ function updateInteractivePlot(parameter){
                 name: 'Min Temperature',
                 x: date,
                 y: chooseOpenWeatherParameter(parameterSelected)[1],
-                line: {color:'green'}
+                line: {color:'#FF9E4A'}
             };
             const OWMMaxTempTrace = {
                 type: 'scatter',
@@ -289,7 +289,7 @@ function updateInteractivePlot(parameter){
                 name: 'Max Temperature',
                 x: date,
                 y: chooseOpenWeatherParameter(parameterSelected)[2],
-                line: {color:'orange'}
+                line: {color:'#67BF5C'}
             };
             // define layout
             const OWMlayout = {
@@ -310,7 +310,7 @@ function updateInteractivePlot(parameter){
                 name: `${parameterSelected}`,
                 x: date,
                 y: chooseModelParameter(parameterSelected),
-                line: {color:'black'}
+                line: {color:"#729ECE"}
             };
             // define layout
             const layout = {
@@ -330,7 +330,7 @@ function updateInteractivePlot(parameter){
                 name: `${parameterSelected}`,
                 x: date,
                 y: chooseOpenWeatherParameter(parameterSelected),
-                line: {color:'black'}
+                line: {color:"#729ECE"}
             };
             // define layout
             const OWMlayout = {
