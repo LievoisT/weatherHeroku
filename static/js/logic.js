@@ -49,11 +49,11 @@ function init(){
         modelPres = params.map(item => Math.round(item['slp']));
         modelVisib = params.map(item => Math.round(item['visib']));
         modelWdsp = params.map(item => Math.round(item['wdsp']));
-        modelRain = params.map(item => Math.round(item['rain_drizzle']));
-        modelFog = params.map(item => Math.round(item['fog']));
-        modelSnow = params.map(item => Math.round(item['snow_ice_pellets']));
-        modelThunder = params.map(item => Math.round(item['thunder']));
-        modelHail = params.map(item => Math.round(item['hail']));
+        modelRain = params.map(item => Math.round(item['rain_drizzle']*100));
+        modelFog = params.map(item => Math.round(item['fog']*100));
+        modelSnow = params.map(item => Math.round(item['snow_ice_pellets']*100));
+        modelThunder = params.map(item => Math.round(item['thunder']*100));
+        modelHail = params.map(item => Math.round(item['hail']*100));
 
         ////////////////////////////////////////////////
         // LSTM MODEL AVERAGE TEMPERATURE PLOT
@@ -87,7 +87,7 @@ function init(){
         // define layout
         const layout = {
             yaxis: {
-                title: 'Temperature',
+                title: 'Temperature (°F)',
                 autorange: true,
             },
             title: 'Predicted Temperatures'
@@ -111,11 +111,11 @@ function init(){
         OWMPres = params.map(item => Math.round(item['slp']));
         OWMVisib = params.map(item => Math.round(item['visib']));
         OWMWdsp = params.map(item => Math.round(item['wdsp']));
-        OWMRain = params.map(item => Math.round(item['rain_drizzle']));
-        OWMFog = params.map(item => Math.round(item['fog']));
-        OWMSnow = params.map(item => Math.round(item['snow_ice_pellets']));
-        OWMThunder = params.map(item => Math.round(item['thunder']));
-        OWMHail = params.map(item => Math.round(item['hail']));
+        OWMRain = params.map(item => Math.round(item['rain_drizzle']*100));
+        OWMFog = params.map(item => Math.round(item['fog']*100));
+        OWMSnow = params.map(item => Math.round(item['snow_ice_pellets']*100));
+        OWMThunder = params.map(item => Math.round(item['thunder']*100));
+        OWMHail = params.map(item => Math.round(item['hail']*100));
 
         ////////////////////////////////////////////////
         // OPENWEATHERMAP AVERAGE TEMPERATURE PLOT
@@ -149,7 +149,7 @@ function init(){
         // define layout
         const layout = {
             yaxis: {
-                title: 'Temperature',
+                title: 'Temperature (°F)',
                 autorange: true,
             },
             title: 'Predicted Temperatures'
@@ -169,13 +169,13 @@ function chooseModelParameter (parameter){
     switch(parameter){
         case "temp":
             return [modelAvgTemp, modelMinTemp, modelMaxTemp];
-        case "Dew Point":
+        case "Dew Point (°F)":
             return modelDewp;
-        case "Barometric Pressure":
+        case "Barometric Pressure (hPa)":
             return modelPres;
-        case "Wind Speed":
+        case "Wind Speed (mph)":
             return modelWdsp;
-        case "Visibility":
+        case "Visibility (mi)":
             return modelVisib;
         case "prcp":
             return [modelRain, modelFog, modelSnow, modelThunder, modelHail];
@@ -188,13 +188,13 @@ function chooseOpenWeatherParameter (parameter){
     switch(parameter){
         case "temp":
             return [OWMAvgTemp, OWMMinTemp, OWMMaxTemp];
-        case "Dew Point":
+        case "Dew Point (°F)":
             return OWMDewp;
-        case "Barometric Pressure":
+        case "Barometric Pressure (hPa)":
             return OWMPres;
-        case "Wind Speed":
+        case "Wind Speed (mph)":
             return OWMWdsp;
-        case "Visibility":
+        case "Visibility (mi)":
             return OWMVisib;
         case "prcp":
             return [OWMRain, OWMFog, OWMSnow, OWMThunder, OWMHail];
@@ -220,10 +220,10 @@ function updateInteractivePlot(parameter){
     // array of available parameters for line graphs
     const parametersArr = [
         "temp",
-        "Dew Point",
-        "Barometric Pressure",
-        "Wind Speed",
-        "Visibility"
+        "Dew Point (°F)",
+        "Barometric Pressure (hPa)",
+        "Wind Speed (mph)",
+        "Visibility (mi)"
     ];
 
     const parameterSelected = parameter;
@@ -258,7 +258,7 @@ function updateInteractivePlot(parameter){
             // define layout
             const layout = {
                 yaxis: {
-                    title: 'Temperature',
+                    title: 'Temperature (°F)',
                     autorange: true,
                     range: [-40,110]
                 },
@@ -294,7 +294,7 @@ function updateInteractivePlot(parameter){
             // define layout
             const OWMlayout = {
                 yaxis: {
-                    title: 'Temperature',
+                    title: 'Temperature (°F)',
                     autorange: true,
                     range: [-40,110]
                 },
@@ -383,7 +383,7 @@ function updateInteractivePlot(parameter){
         barmode: 'group',
         title: 'Precipitation',
         yaxis:{
-            title: 'Probability'
+            title: 'Probability (%)'
         }
     };
 
@@ -427,7 +427,7 @@ function updateInteractivePlot(parameter){
         barmode: 'group',
         title: 'Precipitation',
         yaxis:{
-            title: 'Probability'
+            title: 'Probability (%)'
         }
     };
 
